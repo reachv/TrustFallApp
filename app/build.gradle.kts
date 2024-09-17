@@ -52,6 +52,8 @@ android {
 }
 
 dependencies {
+    implementation("androidx.navigation:navigation-compose:2.8.0")
+    implementation ("androidx.compose.material:material-icons-extended:1.7.1")
     implementation ("com.github.parse-community:Parse-SDK-Android:4.3.0")
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
