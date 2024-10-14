@@ -17,6 +17,8 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.Icon
@@ -42,15 +44,17 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.example.trustfall.R
 import com.example.trustfall.login.ui.theme.acent
 import com.example.trustfall.login.ui.theme.primary
 import com.example.trustfall.login.ui.theme.secondary
 import com.google.android.gms.common.util.AndroidUtilsLight
+import com.parse.ParseUser
 
-@Preview
+
 @Composable
-fun loginView(){
+fun loginView(navController: NavController){
     Box(
         contentAlignment = Alignment.Center,
         modifier = Modifier
@@ -64,12 +68,12 @@ fun loginView(){
                 .clip(shape = RoundedCornerShape(15.dp, 15.dp, 15.dp, 15.dp))
                 .background(primary)
         ){
-            usernameET()
+            usernameET(navController)
         }
     }
 }
 @Composable
-fun usernameET(){
+fun usernameET(navController: NavController){
     var username by remember { mutableStateOf(TextFieldValue("")) }
     var password by rememberSaveable { mutableStateOf("") }
     var passwordVisible by rememberSaveable { mutableStateOf(false) }
@@ -147,6 +151,16 @@ fun usernameET(){
             Text(
                 text = "Remember me?"
             )
+        }
+        Button(
+            onClick = {
+                navController.navigate("Home")
+            },
+            colors = ButtonDefaults.buttonColors(containerColor = secondary),
+            modifier = Modifier
+                .padding(top = 8.dp)
+        ){
+            Text("Back")
         }
     }
 }
