@@ -1,8 +1,14 @@
 package com.example.trustfall.data
 
+import android.app.Activity
+import android.content.Context
+import android.content.Intent
+import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -37,6 +43,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -45,16 +52,19 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.trustfall.LoginActivity
+import com.example.trustfall.MainActivity
 import com.example.trustfall.R
 import com.example.trustfall.login.ui.theme.acent
 import com.example.trustfall.login.ui.theme.primary
 import com.example.trustfall.login.ui.theme.secondary
 import com.google.android.gms.common.util.AndroidUtilsLight
+import com.parse.LogInCallback
+import com.parse.Parse
 import com.parse.ParseUser
 
-
 @Composable
-fun loginView(navController: NavController){
+fun loginView(navController: NavController, context: Context){
     Box(
         contentAlignment = Alignment.Center,
         modifier = Modifier
@@ -68,12 +78,13 @@ fun loginView(navController: NavController){
                 .clip(shape = RoundedCornerShape(15.dp, 15.dp, 15.dp, 15.dp))
                 .background(primary)
         ){
-            usernameET(navController)
+            usernameET(navController, context)
         }
     }
 }
+
 @Composable
-fun usernameET(navController: NavController){
+fun usernameET(navController: NavController, context: Context){
     var username by remember { mutableStateOf(TextFieldValue("")) }
     var password by rememberSaveable { mutableStateOf("") }
     var passwordVisible by rememberSaveable { mutableStateOf(false) }
@@ -152,15 +163,25 @@ fun usernameET(navController: NavController){
                 text = "Remember me?"
             )
         }
+        val activity = LocalContext.current as? Activity
         Button(
             onClick = {
-                navController.navigate("Home")
-            },
-            colors = ButtonDefaults.buttonColors(containerColor = secondary),
-            modifier = Modifier
-                .padding(top = 8.dp)
-        ){
-            Text("Back")
+                var user = ParseUser()
+                ParseUser.logInInBackground(username.toString(), password, LogInCallback { user, e ->
+                    if(e != null){
+                        Log.e("Login.kt", "LoginEception: " + e)
+                        Toast.makeText(context, "Login Failed. Please try again.", Toast.LENGTH_SHORT).show()
+                        return@LogInCallback
+                    }
+                    val intent = Intent(context, MainActivity::class.java)
+                    context.startActivity(intent)
+                    activity?.finish()
+                })
+            }
+        ) {
+            Text("Login")
         }
+        navButton("Home", navController, "Back")
     }
 }
+

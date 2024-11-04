@@ -1,5 +1,6 @@
 package com.example.trustfall.data
 
+import android.content.Context
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -34,6 +35,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.googlefonts.Font
+import androidx.compose.ui.text.googlefonts.GoogleFont
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.TextFieldValue
@@ -49,13 +54,14 @@ import com.parse.ParseUser
 
 
 @Composable
-fun registry(navController: NavController){
+fun registry(navController: NavController, context: Context){
     Box(
         contentAlignment = Alignment.Center,
         modifier = Modifier
             .fillMaxSize()
             .background(primary)
     ){
+        val fontFamily = fontfamily("Lobster Two")
         var username by remember { mutableStateOf(TextFieldValue("")) }
         var password by rememberSaveable { mutableStateOf("") }
         var passwordVisible by rememberSaveable { mutableStateOf(false) }
@@ -66,7 +72,6 @@ fun registry(navController: NavController){
         ) {
             Card(
                 shape = CircleShape
-
             ){
                 Image(
                     painter = painterResource(R.drawable.icon),
@@ -76,12 +81,14 @@ fun registry(navController: NavController){
                 )
             }
             Text(
-                "Create an Account",
+                fontFamily = fontFamily,
+                text = "Create an Account",
                 fontSize = 32.sp
             )
             Text(
                 "Find the peace you deserve",
-                fontSize = 16.sp
+                fontSize = 16.sp,
+                color = Color.Gray
             )
             OutlinedTextField(
                 value = username,
@@ -97,7 +104,7 @@ fun registry(navController: NavController){
             )
 
             OutlinedTextField(
-                value = username,
+                value = email,
                 shape = RoundedCornerShape(15.dp),
                 modifier = Modifier
                     .padding(start = 5.dp, end = 5.dp, top = 8.dp)
@@ -131,27 +138,8 @@ fun registry(navController: NavController){
                     .clip(shape = RoundedCornerShape(15.dp))
                     .background(Color.White)
             )
-            Button(
-                onClick = {
-                    var user = ParseUser()
-
-                },
-                colors = ButtonDefaults.buttonColors(containerColor = secondary),
-                modifier = Modifier
-                    .padding(top = 8.dp)
-            ){
-                Text("Register")
-            }
-            Button(
-                onClick = {
-                    navController.navigate("Home")
-                },
-                colors = ButtonDefaults.buttonColors(containerColor = secondary),
-                modifier = Modifier
-                    .padding(top = 8.dp)
-            ){
-                Text("Back")
-            }
+            registryButton(password, username.toString(), email, context)
+            navButton("Home", navController, "Back")
         }
     }
 }
