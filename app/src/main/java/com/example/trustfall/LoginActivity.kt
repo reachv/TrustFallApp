@@ -8,10 +8,10 @@ import androidx.activity.enableEdgeToEdge
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.trustfall.data.loginView
-import com.example.trustfall.data.registry
-import com.example.trustfall.data.startScreen
-import com.example.trustfall.login.ui.theme.TrustFallTheme
+import com.example.trustfall.Screens.loginView
+import com.example.trustfall.Screens.registry
+import com.example.trustfall.Screens.startScreen
+import com.example.trustfall.ui.theme.TrustFallTheme
 
 class LoginActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,7 +30,7 @@ class LoginActivity : ComponentActivity() {
                         startScreen(navController)
                     }
                     composable("Login"){
-                        loginView(navController, context)
+                        loginView(navController)
                     }
                     composable("Register"){
                         registry(navController, context)

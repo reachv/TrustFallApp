@@ -1,11 +1,8 @@
-package com.example.trustfall.data
+package com.example.trustfall.Screens
 
-import android.content.Context
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Checklist
@@ -22,11 +19,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.trustfall.login.ui.theme.primary
-import com.example.trustfall.login.ui.theme.secondary
-
+import com.example.trustfall.data.bottomNavItem
+import com.example.trustfall.ui.theme.primary
+import com.example.trustfall.ui.theme.secondary
 
 
 @Composable
@@ -66,8 +62,8 @@ fun MainScreen(){
 @Composable
 fun ContentScreen(modifier: Modifier = Modifier, selectedIndex: Int){
     when(selectedIndex){
-        0->PreviousScreen()
-        1->NewTripScreen()
-        2->SettingsScreen()
+        0-> ContactScreen()
+        1-> NewTripScreen()
+        2-> SettingsScreen()
     }
 }
