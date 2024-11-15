@@ -2,7 +2,7 @@ package com.example.trustfall.data
 
 import androidx.compose.ui.graphics.vector.ImageVector
 
-class bottomNavItem(
+data class bottomNavItem(
     val name: String,
     val icon: ImageVector
 )

@@ -183,7 +183,7 @@ fun registryButton(password: String, username: String, firstName: String, lastNa
     OutlinedButton(
         shape = RoundedCornerShape(8.dp),
         onClick = {
-            if(requirementCheck(password, username) && emailCheck(email, context) && usernameUnique(username, context)) {
+            if(requirementCheck(password, username, firstName, lastName) && emailCheck(email, context) && usernameUnique(username, context)) {
                 var friendsList = ArrayList<ParseUser>()
                 var user = ParseUser()
                 user.put("firstName", firstName.replaceFirstChar { it.uppercase() })
@@ -230,15 +230,20 @@ fun usernameUnique(username: String, context: Context): Boolean {
     return result
 }
 
-fun requirementCheck(password: String, username: String): Boolean {
-    val usernamePattern : Pattern = Pattern.compile("[A-Za-z0-9]{5,24}")
-    val passwordPattern : Pattern = Pattern.compile("[a-zA-Z0-9!@#$]{8,24}")
-    if(password.length > 15 || username.length > 15 || password.isNullOrBlank() || username.isNullOrBlank()){
+fun requirementCheck(password: String, username: String, firstName: String, lastName: String): Boolean {
+    val usernamePattern: Pattern = Pattern.compile("[A-Za-z0-9]{5,24}")
+    val namePattern: Pattern = Pattern.compile("[A-Za-z0-9]{3,20}")
+    val passwordPattern: Pattern = Pattern.compile("[a-zA-Z0-9!@#$]{8,24}")
+    if (password.isNullOrBlank() || username.isNullOrBlank()) {
         return false
     }
-    if(!passwordPattern.matcher(password).matches() && !usernamePattern.matcher(username).matches()) {
+    if (!passwordPattern.matcher(password).matches() && !usernamePattern.matcher(username)
+            .matches()
+    ) {
         return false
     }
+    if (!namePattern.matcher(firstName).matches()) return false
+    if (!namePattern.matcher(lastName).matches()) return false
     return true
 }
 

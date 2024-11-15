@@ -62,7 +62,7 @@ fun MainScreen(){
 @Composable
 fun ContentScreen(modifier: Modifier = Modifier, selectedIndex: Int){
     when(selectedIndex){
-        0-> ContactScreen()
+        0-> friendsListView()
         1-> NewTripScreen()
         2-> SettingsScreen()
     }
