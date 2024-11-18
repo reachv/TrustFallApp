@@ -45,6 +45,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.TextFieldValue
@@ -111,6 +112,7 @@ fun usernameET(navController: NavController){
             }
             Text(
                 text = "Username",
+                fontFamily = fontfamily("Oswald"),
                 modifier = Modifier
                     .align(Alignment.Start)
                     .padding(start = 5.dp, end = 5.dp, top = 16.dp)
@@ -124,10 +126,12 @@ fun usernameET(navController: NavController){
                     .background(Color.White),
                 onValueChange = {newText ->
                     username = newText
-                }
+                },
+                textStyle = TextStyle(fontFamily = fontfamily("Oswald"), color = Color.Black)
             )
             Text(
                 text = "Password",
+                fontFamily = fontfamily("Oswald"),
                 modifier = Modifier
                     .align(Alignment.Start)
                     .padding(start = 5.dp, end = 5.dp, bottom = 8.dp, top = 8.dp)
@@ -152,7 +156,8 @@ fun usernameET(navController: NavController){
                 modifier = Modifier
                     .padding(start = 5.dp, end = 5.dp)
                     .clip(shape = RoundedCornerShape(15.dp))
-                    .background(Color.White)
+                    .background(Color.White),
+                textStyle = TextStyle(fontFamily = fontfamily("Oswald"), color = Color.Black)
             )
             Row(
                 verticalAlignment = Alignment.CenterVertically,

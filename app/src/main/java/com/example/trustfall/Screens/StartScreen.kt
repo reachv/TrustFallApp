@@ -71,14 +71,18 @@ fun startScreen(navController: NavController){
                     .padding(16.dp)
                     .clickable {
                         navController.navigate("Login")
-                })
+                },
+                fontFamily = fontfamily("Oswald")
+            )
             Text(
                 "Sign up",
                 modifier = Modifier
                     .padding(16.dp)
                     .clickable {
                         navController.navigate("Register")
-                })
+                },
+                fontFamily = fontfamily("Oswald")
+            )
         }
     }
 }

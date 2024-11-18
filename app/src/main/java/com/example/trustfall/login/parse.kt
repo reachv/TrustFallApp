@@ -4,6 +4,7 @@ import android.app.Application
 import com.example.trustfall.BuildConfig
 import com.example.trustfall.R
 import com.parse.Parse
+import com.parse.ParseObject
 
 class parse : Application(){
     override fun onCreate() {
@@ -16,6 +17,7 @@ class parse : Application(){
                 .server("https://parseapi.back4app.com")
                 .build()
         )
+        ParseObject.registerSubclass(friendsRequestQuery::class.java);
     }
 }
 

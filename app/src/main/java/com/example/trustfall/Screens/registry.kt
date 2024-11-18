@@ -40,6 +40,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.capitalize
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -97,7 +98,8 @@ fun registry(navController: NavController, context: Context){
                 Text(
                     "Find the peace you deserve",
                     fontSize = 16.sp,
-                    color = Color.Gray
+                    color = Color.Gray,
+                    fontFamily = fontfamily("Oswald")
                 )
                 OutlinedTextField(
                     value = username,
@@ -109,7 +111,13 @@ fun registry(navController: NavController, context: Context){
                     onValueChange = {newText ->
                         username = newText
                     },
-                    placeholder = { Text("Enter Your Username") }
+                    placeholder = {
+                        Text(
+                            "Enter Your Username",
+                            fontFamily = fontfamily("Oswald")
+                        )
+                    },
+                    textStyle = TextStyle(fontFamily = fontfamily("Oswald"))
                 )
                 OutlinedTextField(
                     value = firstName,
@@ -121,7 +129,13 @@ fun registry(navController: NavController, context: Context){
                     onValueChange = { newText ->
                         firstName = newText
                     },
-                    placeholder = {Text("Enter Your First Name")}
+                    placeholder = {
+                        Text(
+                            "Enter Your First Name",
+                            fontFamily = fontfamily("Oswald")
+                        )
+                    },
+                    textStyle = TextStyle(fontFamily = fontfamily("Oswald"))
                 )
                 OutlinedTextField(
                     value = lastName,
@@ -133,7 +147,13 @@ fun registry(navController: NavController, context: Context){
                     onValueChange = { newText ->
                         lastName = newText
                     },
-                    placeholder = {Text("Enter Your Last Name")}
+                    placeholder = {
+                        Text(
+                            "Enter Your Last Name",
+                            fontFamily = fontfamily("Oswald")
+                        )
+                    },
+                    textStyle = TextStyle(fontFamily = fontfamily("Oswald"))
                 )
                 OutlinedTextField(
                     value = email,
@@ -145,7 +165,13 @@ fun registry(navController: NavController, context: Context){
                     onValueChange = {newText ->
                         email = newText.toString()
                     },
-                    placeholder = { Text("Enter Your Email") }
+                    placeholder = {
+                        Text(
+                            "Enter Your Email",
+                            fontFamily = fontfamily("Oswald")
+                        )
+                    },
+                    textStyle = TextStyle(fontFamily = fontfamily("Oswald"))
                 )
 
                 OutlinedTextField(
@@ -153,7 +179,12 @@ fun registry(navController: NavController, context: Context){
                     shape = RoundedCornerShape(15.dp),
                     onValueChange = { password = it },
                     singleLine = true,
-                    placeholder = { Text("Enter Your Password") },
+                    placeholder = {
+                        Text(
+                            "Enter Your Password",
+                            fontFamily = fontfamily("Oswald")
+                        )
+                    },
                     visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
                     trailingIcon = {
@@ -168,9 +199,10 @@ fun registry(navController: NavController, context: Context){
                     modifier = Modifier
                         .padding(start = 5.dp, end = 5.dp, top = 8.dp)
                         .clip(shape = RoundedCornerShape(15.dp))
-                        .background(Color.White)
+                        .background(Color.White),
+                    textStyle = TextStyle(fontFamily = fontfamily("Oswald"))
                 )
-                registryButton(password, username.text, email, firstName.text, lastName.text, context)
+                registryButton(password, username.text, firstName.text, lastName.text, email, context)
                 navButton("Home", navController, "Back")
                 Spacer(Modifier.padding(bottom = 5.dp))
             }
@@ -235,15 +267,23 @@ fun requirementCheck(password: String, username: String, firstName: String, last
     val namePattern: Pattern = Pattern.compile("[A-Za-z0-9]{3,20}")
     val passwordPattern: Pattern = Pattern.compile("[a-zA-Z0-9!@#$]{8,24}")
     if (password.isNullOrBlank() || username.isNullOrBlank()) {
+        Log.e("here", "Username or Password")
         return false
     }
     if (!passwordPattern.matcher(password).matches() && !usernamePattern.matcher(username)
             .matches()
     ) {
+        Log.e("here", "Username or Password")
         return false
     }
-    if (!namePattern.matcher(firstName).matches()) return false
-    if (!namePattern.matcher(lastName).matches()) return false
+    if (!namePattern.matcher(firstName).matches()) {
+        Log.e("here", firstName)
+        return false
+    }
+    if (!namePattern.matcher(lastName).matches()) {
+        Log.e("here", "lName")
+        return false
+    }
     return true
 }
 

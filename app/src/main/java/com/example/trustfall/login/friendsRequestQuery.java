@@ -1,4 +1,4 @@
-package com.example.trustfall.data;
+package com.example.trustfall.login;
 
 import com.parse.ParseClassName;
 import com.parse.ParseObject;
@@ -13,7 +13,8 @@ public class friendsRequestQuery extends ParseObject {
     public ParseUser getRequested(){
         return (ParseUser) get("requested");
     }
-
+    public Boolean getAccepted(){return (Boolean) get("accepted");}
+    public String getObjectId(){return (String) get("objectId");}
     //Setters
     public void putRequester(ParseUser requester){
         put("requester", requester);
@@ -21,5 +22,6 @@ public class friendsRequestQuery extends ParseObject {
     public void putRequested(ParseUser requested){
         put("requested", requested);
     }
+    public void putAccepted(Boolean accepted) { put("accepted", accepted); }
 
 }

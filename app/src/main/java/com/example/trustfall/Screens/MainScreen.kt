@@ -5,7 +5,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Checklist
+import androidx.compose.material.icons.filled.Contacts
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
@@ -28,8 +28,8 @@ import com.example.trustfall.ui.theme.secondary
 @Composable
 fun MainScreen(){
     val bottomNavItemList = listOf(
-        bottomNavItem("Previous Trips", Icons.Default.Checklist),
-        bottomNavItem("New Trip", Icons.Default.Add),
+        bottomNavItem("Friends", Icons.Default.Contacts),
+        bottomNavItem("Home", Icons.Default.Add),
         bottomNavItem("Settings", Icons.Default.Settings)
     )
     var selectedIndex by remember { mutableIntStateOf(1) }
@@ -50,7 +50,7 @@ fun MainScreen(){
                     icon = {
                         Icon(imageVector = bottomNavItem.icon, contentDescription = "Icon")
                     },
-                    label = { Text(text = bottomNavItem.name) }
+                    label = { Text(text = bottomNavItem.name, fontFamily = fontfamily("Oswald")) }
                 )
             }
         } },
@@ -63,7 +63,7 @@ fun MainScreen(){
 fun ContentScreen(modifier: Modifier = Modifier, selectedIndex: Int){
     when(selectedIndex){
         0-> friendsListView()
-        1-> NewTripScreen()
+        1-> HomePage()
         2-> SettingsScreen()
     }
 }
