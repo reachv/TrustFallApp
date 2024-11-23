@@ -1,4 +1,4 @@
-package com.example.trustfall.Screens
+package com.example.trustfall.screens
 
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.fillMaxSize

@@ -1,4 +1,4 @@
-package com.example.trustfall.Screens
+package com.example.trustfall.screens
 
 import android.app.Activity
 import android.util.Log
@@ -58,10 +58,8 @@ import androidx.navigation.compose.rememberNavController
 import com.example.trustfall.login.friendsRequestQuery
 import com.example.trustfall.ui.theme.primary
 import com.example.trustfall.ui.theme.secondary
-import com.parse.Parse
 import com.parse.ParseQuery
 import com.parse.ParseUser
-import kotlinx.coroutines.runBlocking
 import java.util.regex.Pattern
 
 @Composable

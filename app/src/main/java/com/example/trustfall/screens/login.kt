@@ -1,4 +1,4 @@
-package com.example.trustfall.Screens
+package com.example.trustfall.screens
 
 import android.app.Activity
 import android.content.Intent
@@ -25,7 +25,6 @@ import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.CardElevation
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -179,6 +178,7 @@ fun usernameET(navController: NavController){
                 )
             }
             Button(
+                shape = RoundedCornerShape(8.dp),
                 onClick = {
                     ParseUser.logInInBackground(username.text, password, LogInCallback { user, e ->
                         if(e != null){

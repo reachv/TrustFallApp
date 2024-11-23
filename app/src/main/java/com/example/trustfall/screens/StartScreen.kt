@@ -1,4 +1,4 @@
-package com.example.trustfall.Screens
+package com.example.trustfall.screens
 
 import android.app.Activity
 import androidx.compose.foundation.background

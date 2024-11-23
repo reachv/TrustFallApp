@@ -8,9 +8,9 @@ import androidx.activity.enableEdgeToEdge
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.trustfall.Screens.loginView
-import com.example.trustfall.Screens.registry
-import com.example.trustfall.Screens.startScreen
+import com.example.trustfall.screens.loginView
+import com.example.trustfall.screens.registry
+import com.example.trustfall.screens.startScreen
 import com.example.trustfall.ui.theme.TrustFallTheme
 
 class LoginActivity : ComponentActivity() {

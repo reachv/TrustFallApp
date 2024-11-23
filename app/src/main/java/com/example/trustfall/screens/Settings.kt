@@ -1,4 +1,4 @@
-package com.example.trustfall.Screens
+package com.example.trustfall.screens
 
 import android.app.Activity
 import android.content.Intent
@@ -50,11 +50,9 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
@@ -95,16 +93,16 @@ fun SettingsScreen() {
             LogOut(navController)
         }
         composable("Change Username") {
-            changeUsernameDisplay(navController)
+            ChangeUsernameDisplay(navController)
         }
         composable("Change Password") {
-            changePasswordDisplay(navController)
+            ChangePasswordDisplay(navController)
         }
     }
 }
 
 @Composable
-fun changePasswordDisplay(navController: NavHostController) {
+fun ChangePasswordDisplay(navController: NavHostController) {
     val context = LocalContext.current as Activity
     var oldPassword by rememberSaveable { mutableStateOf("") }
     var newPassword by rememberSaveable { mutableStateOf("") }
@@ -245,7 +243,7 @@ fun changePasswordDisplay(navController: NavHostController) {
                                     ).show()
                                     return@LogInCallback
                                 }
-                                var user = ParseUser.getCurrentUser()
+                                val user = ParseUser.getCurrentUser()
                                 user.setPassword(newPassword)
                                 user.saveInBackground { e ->
                                     if (e != null) {
@@ -278,7 +276,7 @@ fun changePasswordDisplay(navController: NavHostController) {
 }
 
 @Composable
-fun changeUsernameDisplay(navController: NavHostController) {
+fun ChangeUsernameDisplay(navController: NavHostController) {
     val context = LocalContext.current as Activity
     var username by remember { mutableStateOf("") }
     Column(
