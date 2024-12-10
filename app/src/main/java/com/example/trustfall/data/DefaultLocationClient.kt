@@ -45,7 +45,6 @@ class DefaultLocationClient(
                         launch { send(location) }
                     }
                 }
-
             }
 
             client.requestLocationUpdates(request,

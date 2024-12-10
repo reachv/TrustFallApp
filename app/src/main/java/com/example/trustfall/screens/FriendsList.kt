@@ -255,7 +255,8 @@ fun inboxDisplay(navController: NavHostController) {
                                         .makeText(context, "Successful", Toast.LENGTH_SHORT)
                                         .show()
                                 }
-                            })
+                            }
+                    )
                     Text("Decline",
                         fontSize = 20.sp,
                         fontFamily = fontfamily("Oswald"),
@@ -388,11 +389,12 @@ fun friendsListDisplayScreen(navController: NavHostController) {
                 )
             } else {
                 friendsList?.sortedBy {
-                    it.username
+                    it.fetchIfNeeded().username
                 }
-                friendsList?.forEachIndexed { index, parseUser ->
+                Log.e("here", "here1")
+                friendsList.forEachIndexed { index, parseUser ->
                     friendsDisplayCard(parseUser)
-                    if (!(friendsList.size - 1 == index)) {
+                    if (friendsList.size - 1 != index) {
                         Spacer(
                             modifier = Modifier
                                 .fillMaxWidth()
@@ -443,8 +445,7 @@ fun friendsDisplayCard(user: ParseUser) {
             modifier = Modifier.padding(5.dp)
         )
         Text(
-            user.fetchIfNeeded().get("firstName").toString() + " " + user.fetchIfNeeded()
-                .get("lastName").toString(),
+            user.fetchIfNeeded().get("firstName").toString() + " " + user.fetchIfNeeded().get("lastName").toString(),
             fontSize = 20.sp,
             fontFamily = fontfamily("Oswald")
         )
@@ -468,13 +469,13 @@ fun inboxQuery(): HashMap<String, ArrayList<friendsRequestQuery>> {
     Log.e("requests", request.toString())
 
     request.forEachIndexed { index, friendsRequestQuery ->
-        if (friendsRequestQuery.requester.fetch().objectId == ParseUser.getCurrentUser().objectId) {
+        if (friendsRequestQuery.requester.fetch().objectId.toString() == ParseUser.getCurrentUser().objectId.toString()) {
             result["accepted"]?.add(friendsRequestQuery)
         } else {
             result["requested"]?.add(friendsRequestQuery)
         }
     }
-    Log.e("here", result["requested"].toString())
+/*    Log.e("here", result["requested"].toString())*/
     return result
 }
 

@@ -20,6 +20,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountBalance
+import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Logout
 import androidx.compose.material.icons.filled.Password
 import androidx.compose.material.icons.filled.Person
@@ -98,6 +99,20 @@ fun SettingsScreen() {
         composable("Change Password") {
             ChangePasswordDisplay(navController)
         }
+        composable("User ID"){
+            userID()
+        }
+    }
+}
+
+@Composable
+fun userID() {
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text("User code: " + ParseUser.getCurrentUser().objectId.toString(), fontFamily = fontfamily("Oswald"))
     }
 }
 
@@ -522,7 +537,8 @@ fun AccountSettingPage(navController: NavHostController) {
             Spacer(modifier = Modifier.padding(5.dp))
             val settingsItemList = listOf(
                 settingNavItem("Change Username", fontfamily("Oswald"), Icons.Default.VerifiedUser),
-                settingNavItem("Change Password", fontfamily("Oswald"), Icons.Default.Password)
+                settingNavItem("Change Password", fontfamily("Oswald"), Icons.Default.Password),
+                settingNavItem("User ID", fontFamily = fontfamily("Oswald"), Icons.Default.AccountCircle)
             )
             settingsItemList.forEachIndexed { index, settingNavItem ->
                 TextWithIcon(navController, settingNavItem)

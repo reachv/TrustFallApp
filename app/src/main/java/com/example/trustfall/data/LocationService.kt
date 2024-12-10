@@ -19,6 +19,7 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.app.NotificationCompat
+import com.example.trustfall.BuildConfig
 import com.example.trustfall.R
 import com.google.android.gms.location.LocationServices
 import com.google.maps.android.compose.GoogleMap
@@ -29,10 +30,10 @@ import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
+import okhttp3.internal.wait
 
 class LocationService: Service() {
-
-    private val serviceScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
+    var serviceScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
     private lateinit var locationClient: LocationClient
     var count = 100
     lateinit var LocationHandler: Handler
@@ -55,14 +56,17 @@ class LocationService: Service() {
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        Log.e("Test", intent?.action.toString())
        when(intent?.action){
            ACTION_START -> start()
            ACTION_STOP -> stop()
        }
+
         return super.onStartCommand(intent, flags, startId)
     }
 
     private fun start(){
+        serviceScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
         val notification = NotificationCompat.Builder(this, "location")
             .setContentTitle("Tracking location...")
             .setContentText("Location: null")
@@ -77,10 +81,8 @@ class LocationService: Service() {
                 val lat = location.latitude.toString().takeLast(3)
                 val long = location.longitude.toString().takeLast(3)
                 val updatedNotificaiton = notification.setContentText(
-                    "Location: ($lat, $long)"
+                    "Location: $lat, $long"
                 )
-                count -= 5
-                Log.e("count", count.toString())
                 notificationManager.notify(1, updatedNotificaiton.build())
                 if(::LocationHandler.isInitialized){
                     var message = Message()
@@ -97,10 +99,15 @@ class LocationService: Service() {
 
     private fun stop(){
         stopForeground(STOP_FOREGROUND_DETACH)
+        val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        notificationManager.cancel(1)
         stopSelf()
         serviceScope.cancel()
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+    }
     companion object{
         const val ACTION_START = "ACTION_START"
         const val ACTION_STOP = "ACTION_STOP"

@@ -58,10 +58,13 @@ android {
 }
 
 dependencies {
+
     implementation("androidx.navigation:navigation-compose:2.8.0")
     implementation ("androidx.compose.material:material-icons-extended:1.7.1")
     implementation ("com.github.parse-community:Parse-SDK-Android:4.3.0")
     implementation("androidx.compose.ui:ui-text-google-fonts:1.7.3")
+    implementation ("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation ("com.squareup.retrofit2:converter-gson:2.5.0")
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
@@ -89,6 +92,7 @@ dependencies {
     implementation("androidx.datastore:datastore-preferences:1.1.1")
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.7")
     implementation("com.google.maps.android:maps-compose:6.2.1")
-
+    implementation(libs.places)
+    implementation(libs.play.services.maps)
 
 }
