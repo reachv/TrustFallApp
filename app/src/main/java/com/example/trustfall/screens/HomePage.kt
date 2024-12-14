@@ -165,7 +165,7 @@ fun mapsDisplay() {
                 state = MarkerState(userPosition)
             )
         }
-        Row {
+        Row (modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly){
             Button(
                 onClick = {
                     Intent(context, LocationService::class.java).apply {
@@ -192,13 +192,12 @@ fun mapsDisplay() {
                     val stopTrackingIntent = Intent(context, LocationService::class.java).apply {
                         action = LocationService.ACTION_STOP}
                     context.startService(stopTrackingIntent)
-
                     var intent = Intent(context, ActiveTrip::class.java)
                     intent.putExtra("dest", destination)
                     intent.putExtra("origin", "${userPosition.latitude}, ${userPosition.longitude}")
                     context.startActivity(intent)
                 },
-                enabled = StartTripButton
+                enabled = (StartTripButton == true && inverseButtons == true)
             ) {
                 Text("Start Trip")
             }
@@ -206,7 +205,7 @@ fun mapsDisplay() {
     }
 }
 
-fun updateUserLocation(userPosition: LatLng) {
+fun updateUserLocation(userPosition: LatLng, alertLevel: Int = 0) {
     val user = ParseUser.getCurrentUser()
     user.put("currLat", userPosition.latitude)
     user.put("currLong", userPosition.longitude)

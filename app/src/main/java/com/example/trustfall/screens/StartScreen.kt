@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
@@ -21,6 +22,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.googlefonts.Font
@@ -62,27 +64,42 @@ fun startScreen(navController: NavController){
             Text(
                 text = "Welcome",
                 fontFamily = fontFamily,
-                fontSize = 32.sp,
-                modifier = Modifier
-                    .padding(16.dp))
-            Text(
-                "Login",
+                fontSize = 50.sp,
                 modifier = Modifier
                     .padding(16.dp)
-                    .clickable {
-                        navController.navigate("Login")
-                },
-                fontFamily = fontfamily("Oswald")
             )
-            Text(
-                "Sign up",
-                modifier = Modifier
-                    .padding(16.dp)
-                    .clickable {
-                        navController.navigate("Register")
+            Button(
+                shape = RectangleShape,
+                onClick = {
+                    navController.navigate("Login")
                 },
-                fontFamily = fontfamily("Oswald")
-            )
+                modifier = Modifier.padding(top = 16.dp, bottom = 16.dp)
+            ) {
+                Text(
+                    "Login",
+                    modifier = Modifier
+                        .clickable {
+                            navController.navigate("Login")
+                        },
+                    fontFamily = fontfamily("Oswald")
+                )
+            }
+            Button(
+                shape = RectangleShape,
+                onClick = {
+                    navController.navigate("Login")
+                },
+                modifier = Modifier.padding(top = 16.dp, bottom = 16.dp)
+            ) {
+                Text(
+                    "Sign up",
+                    modifier = Modifier
+                        .clickable {
+                            navController.navigate("Register")
+                        },
+                    fontFamily = fontfamily("Oswald")
+                )
+            }
         }
     }
 }

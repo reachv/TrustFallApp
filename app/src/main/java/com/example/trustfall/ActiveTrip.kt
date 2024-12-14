@@ -135,7 +135,7 @@ private fun ActivetTripDisplay(
     var userPosition by remember { mutableStateOf(LatLng(0.toDouble(), 0.toDouble())) }
     var cameraPosition = rememberCameraPositionState { position = CameraPosition.fromLatLngZoom(userPosition, 15f) }
     var cameraPositionState by remember { mutableStateOf(cameraPosition) }
-    var request by remember { mutableStateOf(false) }
+    var alertLevel by remember { mutableStateOf(0) }
     var password by rememberSaveable { mutableStateOf("") }
     var passwordVisible by rememberSaveable { mutableStateOf(false) }
 
@@ -149,7 +149,8 @@ private fun ActivetTripDisplay(
             )
             isCurrentLocation = true
         }
-        updateUserLocation(userPosition)
+        alertLevel = alertCheck(userPosition, route)
+        updateUserLocationActive(userPosition, alertLevel, route)
         Log.e("testings", userPosition.toString())
         true
     }
@@ -227,24 +228,21 @@ private fun ActivetTripDisplay(
 }
 
 
-fun alertCheck(curr : LatLng, area: List<LatLng>, alertLevel: Int){
-    var result = alertLevel
-    if(area.size > 1){
-        area.sortedBy { distanceTo(curr.latitude, curr.longitude, it.latitude, it.longitude) }
-        if(distanceTo(curr.latitude, curr.longitude, area[0].latitude, area[0].longitude) < 5){
-            Log.e("Testing5","${distanceTo(curr.latitude, curr.longitude, area[0].latitude, area[0].longitude)}")
-        }
-        Log.e("Testing5", "$area")
+fun alertCheck(curr : LatLng, area: List<LatLng>): Int{
+    var result = 0
+    if(distanceTo(curr.latitude, curr.longitude, area[0].latitude, area[0].longitude) >= 1){
+        result = 1
     }
+    if(distanceTo(curr.latitude, curr.longitude, area[0].latitude, area[0].longitude) >= 5){
+        result = 2
+    }
+    return result
 }
-
-fun alert(level: Int){
+fun updateUserLocationActive(userPosition: LatLng, alertLevel: Int = 0, area: List<LatLng>) {
     val user = ParseUser.getCurrentUser()
-    if(level == 1){
-        user.put("alertLevel", level)
-    }else if(level == 2){
-        user.put("alertLevel", level)
-    }
+    user.put("currLat", userPosition.latitude)
+    user.put("currLong", userPosition.longitude)
+    user.put("alertLevel", alertLevel)
     user.save()
 }
 

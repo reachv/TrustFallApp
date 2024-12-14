@@ -55,6 +55,7 @@ import com.example.trustfall.MainActivity
 import com.example.trustfall.R
 import com.example.trustfall.dataStore.settingsDataStore
 import com.example.trustfall.ui.theme.primary
+import com.example.trustfall.ui.theme.secondary
 import com.parse.LogInCallback
 import com.parse.ParseUser
 import kotlinx.coroutines.launch
@@ -92,7 +93,11 @@ fun usernameET(navController: NavController){
     LaunchedEffect(key1 = true) {
         checkboxState = settingsDataStore.getFromDataStore()
     }
-    Card (Modifier.wrapContentSize(), elevation = CardDefaults.cardElevation(10.dp)){
+    Card (
+        modifier = Modifier.wrapContentSize(),
+        colors = CardDefaults.cardColors(secondary),
+        elevation = CardDefaults.cardElevation(10.dp)
+    ){
         Column(
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
