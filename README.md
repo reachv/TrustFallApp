@@ -13,3 +13,10 @@ SignUp or Login using user credentials
 Enter a valid address
 Begin Tracking and start trip
 Enter your password again to exit trip
+
+To add friend:
+SignUp or Login using user credentials
+Select the Contact Page
+Select the plus button
+Enter a valid user ID
+Submit
